@@ -13,7 +13,7 @@ const modals = () => {
         function closeModal() {
             modal.style.display = "none";
             //document.body.classList.remove("modal-open");
-            document.body.overflow ="";
+            document.body.style.overflow ="";
         }
         //обрабатываем события для всех кнопок или ссылок, которые открывают модальные окна
         trigger.forEach(item => {
@@ -22,16 +22,16 @@ const modals = () => {
                 if (e.target) {
                     e.preventDefault();
                 }
-    
                 modal.style.display = "block";
                 //document.body.classList.add("modal-open");
-                document.body.overflow ="hidden";
+                document.body.style.overflow ="hidden";
             });
         });
         //закрываем окно при нажатии на крестик
         close.addEventListener("click", () => {
             closeModal();
         });
+
         //закрываем окно при нажатии на подложку
         modal.addEventListener("click", e => {
             if (e.target === modal) {
@@ -47,11 +47,9 @@ const modals = () => {
             document.body.overflow ="";
         }, time);
     }
-
     bindModal(".popup_engineer_btn", ".popup_engineer", ".popup_engineer .popup_close");
     bindModal(".phone_link", ".popup", ".popup .popup_close" );
-    showModalByTime(".popup", 1000);
-
+    // showModalByTime(".popup", 60000);
 };
 
 export default modals;
