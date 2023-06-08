@@ -1,16 +1,14 @@
 "use strict";
-
-const forms = () => {
+import checkNumInputs from "./checkNumInputs";
+const forms = (state) => {
    //получаем все формы и их поля ввода 
    const form = document.querySelectorAll("form"),
          inputs = document.querySelectorAll("input"),
-         phoneInputs = document.querySelectorAll("input[name='user_phone']");
-    //реализуем функциональность цифрового ввода в поле для телефона
-    phoneInputs.forEach(item => {
-        item.addEventListener('input', () => {
-            item.value = item.value.replace(/\D/, '').substring(0, 9);
-        });
-    });
+         calcWrapper = document.querySelector('.popup_calc_end');
+         
+
+    checkNumInputs("input[name='user_phone']");
+
     //задаем объект для реакции сервера на наши ПОСТ запросы в модальном окне
     const message = {
         loading: "Загрузка...",
@@ -33,8 +31,10 @@ const forms = () => {
             item.value = "";
         });
     };
+
+
     //реализуем функцию взаимодействия с формами
-    form.forEach(item => {
+    form.forEach((item, i) => {
         item.addEventListener("submit", (e) => {
             e.preventDefault();
             //создаем сообщение о статусе отправки данных
@@ -43,6 +43,12 @@ const forms = () => {
             item.appendChild(statusMessage);
             //создаем переменную для отправки данных с формы
             const formData = new FormData(item);
+
+            if(item.getAttribute('data-calc') === "end") {
+                for(let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
             //передаем данные на сервер
             postData("assets/server.php", formData)
                 .then(res => {
@@ -54,6 +60,8 @@ const forms = () => {
                     clearInputs();
                     setTimeout(() => {
                         statusMessage.remove();
+                        calcWrapper.style = "display: none";
+                        return state = {};
                     }, 5000);
                 });
         });
