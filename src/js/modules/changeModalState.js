@@ -2,7 +2,6 @@
 import checkNumInputs from "./checkNumInputs";
 
 const changeModalState = (state) => {
-    state.form = 0;
     const windowForm = document.querySelectorAll('.balcon_icons_img'),
           windowWidth = document.querySelectorAll('#width'),
           windowHeight = document.querySelectorAll('#height'),
@@ -31,11 +30,6 @@ const changeModalState = (state) => {
                         state[prop] = item.value; 
                         break;
                 }
-                // if(item.length > 1) {
-                //     state[prop] = i;
-                // } else {
-                //     state[prop] = item.value;
-                // }
 
                 console.log(state);
             });

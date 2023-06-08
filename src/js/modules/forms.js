@@ -34,7 +34,7 @@ const forms = (state) => {
 
 
     //реализуем функцию взаимодействия с формами
-    form.forEach((item, i) => {
+    form.forEach(item => {
         item.addEventListener("submit", (e) => {
             e.preventDefault();
             //создаем сообщение о статусе отправки данных
@@ -61,7 +61,7 @@ const forms = (state) => {
                     setTimeout(() => {
                         statusMessage.remove();
                         calcWrapper.style = "display: none";
-                        return state = {};
+                        state = {};
                     }, 5000);
                 });
         });
